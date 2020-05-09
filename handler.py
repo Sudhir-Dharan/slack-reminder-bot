@@ -8,8 +8,8 @@ import googleapiclient.discovery
 from slackclient import SlackClient
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SAMPLE_SPREADSHEET_ID = ''
-SAMPLE_RANGE_NAME = 'A2:G'
+SPREADSHEET_ID = ''
+RANGE = 'A2:G'
 SLACK_TOKEN = "" # found at https://api.slack.com/#auth)
 SLACK_CHANNEL = ""
 SERVICE_ACCOUNT_FILE = 'credentials.json'
@@ -27,8 +27,8 @@ def starter(event, context):
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
     service = googleapiclient.discovery.build('sheets', 'v4', credentials=credentials, cache_discovery=False)    # Call the Sheets API
     sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-                                range=SAMPLE_RANGE_NAME).execute()
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,
+                                range=RANGE).execute()
     values = result.get('values', [])
 
     today = date.today()
