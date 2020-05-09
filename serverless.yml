@@ -1,0 +1,16 @@
+service: st-remind-bot
+
+provider:
+  name: aws
+  runtime: python2.7
+  timeout: 60
+
+plugins:
+  - serverless-python-requirements
+
+functions:
+  cron:
+    name: ST-remind-cron
+    handler: handler.starter
+    events:
+      - schedule: cron(0 4 ? * * *)
